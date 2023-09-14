@@ -1,11 +1,11 @@
 #include <immintrin.h>
 #include <iostream>
 #include <cassert>
-#include "Vec1.hpp"
-#include "Vec2.hpp"
-#include "Vec3.hpp"
-#include "Vec4.hpp"
-#include "Mat.hpp"
+#include "types/Vec1.hpp"
+#include "types/Vec2.hpp"
+#include "types/Vec3.hpp"
+#include "types/Vec4.hpp"
+#include "operations/dot.hpp"
 
 using namespace R3::Math;
 
@@ -27,6 +27,8 @@ void test_vec1()
     Vec1 a(1.0f);
     Vec1<double> b(a++);
     assert(b + 1 == a);
+
+    assert(R3::Math::dot(a, b) == 2);
 }
 
 void test_vec2()

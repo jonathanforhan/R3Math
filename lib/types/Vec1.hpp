@@ -3,11 +3,10 @@
 
 namespace R3::Math {
 
-template<std::floating_point T, std::size_t S = 1>
+template<std::floating_point T>
 struct Vec1
 {
     T x;
-    static constexpr auto size() { return S; }
 
     Vec1() = default;
     Vec1(const Vec1 &v) = default;

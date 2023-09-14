@@ -3,40 +3,30 @@
 
 namespace R3::Math {
 
-template<std::floating_point T, std::size_t S = 3>
-struct Vec3
+template<std::floating_point T>
+struct Vec2
 {
-    T x, y, z;
-    static constexpr auto size() { return S; }
+    T x, y;
 
-    Vec3() = default;
-    Vec3(const Vec3 &v) = default;
-    Vec3(Vec3 &&v)  noexcept = default;
-    Vec3(T x, T y, T z)
+    Vec2() = default;
+    Vec2(const Vec2 &v) = default;
+    Vec2(Vec2 &&v)  noexcept = default;
+    Vec2(T x, T y)
             : x(x),
-              y(y),
-              z(z)
+              y(y)
     {};
-    explicit Vec3(T s)
+    explicit Vec2(T s)
             : x(s),
-              y(s),
-              z(s)
+              y(s)
     {};
     template<std::floating_point U>
-    explicit Vec3(const Vec3<U> &v)
+    explicit Vec2(const Vec2<U> &v)
             : x(v.x),
-              y(v.y),
-              z(v.z)
+              y(v.y)
     {};
-    Vec3(const Vec1<T> &v, auto y, auto z)
+    Vec2(const Vec1<T> &v, auto y)
             : x(v.x),
-              y(y),
-              z(z)
-    {};
-    Vec3(const Vec2<T> &v, auto z)
-            : x(v.x),
-              y(v.y),
-              z(z)
+              y(y)
     {};
 
     // Unary Constant Operators
@@ -44,10 +34,9 @@ struct Vec3
         return this;
     }
     constexpr auto operator-() const {
-        return Vec3 {
+        return Vec2 {
             -this->x,
             -this->y,
-            -this->z,
         };
     }
 
@@ -55,66 +44,56 @@ struct Vec3
     constexpr auto &operator=(const auto &v) {
         this->x = v.x;
         this->y = v.y;
-        this->z = v.z;
         return *this;
     }
     template<std::floating_point U>
-    constexpr auto &operator=(const Vec3<U> &v) {
+    constexpr auto &operator=(const Vec2<U> &v) {
         this->x = static_cast<T>(v.x);
         this->y = static_cast<T>(v.y);
-        this->z = static_cast<T>(v.z);
         return *this;
     }
     template<std::floating_point U>
-    constexpr auto &operator+=(const Vec3<U> &v) {
+    constexpr auto &operator+=(const Vec2<U> &v) {
         this->x += static_cast<T>(v.x);
         this->y += static_cast<T>(v.y);
-        this->z += static_cast<T>(v.z);
         return *this;
     }
     constexpr auto &operator+=(auto v) {
         this->x += static_cast<T>(v);
         this->y += static_cast<T>(v);
-        this->z += static_cast<T>(v);
         return *this;
     }
     template<std::floating_point U>
-    constexpr auto &operator-=(const Vec3<U> &v) {
+    constexpr auto &operator-=(const Vec2<U> &v) {
         this->x -= static_cast<T>(v.x);
         this->y -= static_cast<T>(v.y);
-        this->z -= static_cast<T>(v.z);
         return *this;
     }
     constexpr auto &operator-=(auto v) {
         this->x -= static_cast<T>(v);
         this->y -= static_cast<T>(v);
-        this->z -= static_cast<T>(v);
         return *this;
     }
     template<std::floating_point U>
-    constexpr auto &operator*=(const Vec3<U> &v) {
+    constexpr auto &operator*=(const Vec2<U> &v) {
         this->x *= static_cast<T>(v.x);
         this->y *= static_cast<T>(v.y);
-        this->z *= static_cast<T>(v.z);
         return *this;
     }
     constexpr auto &operator*=(auto v) {
         this->x *= static_cast<T>(v);
         this->y *= static_cast<T>(v);
-        this->z *= static_cast<T>(v);
         return *this;
     }
     template<std::floating_point U>
-    constexpr auto &operator/=(const Vec3<U> &v) {
+    constexpr auto &operator/=(const Vec2<U> &v) {
         this->x /= static_cast<T>(v.x);
         this->y /= static_cast<T>(v.y);
-        this->z /= static_cast<T>(v.z);
         return *this;
     }
     constexpr auto &operator/=(auto v) {
         this->x /= static_cast<T>(v);
         this->y /= static_cast<T>(v);
-        this->z /= static_cast<T>(v);
         return *this;
     }
 
@@ -122,81 +101,71 @@ struct Vec3
     constexpr auto &operator++() {
         ++this->x;
         ++this->y;
-        ++this->z;
         return *this;
     }
     constexpr auto operator++(auto) {
-        const auto copy = Vec3(*this);
+        const auto copy = Vec2(*this);
         ++*this;
         return copy;
     }
     constexpr auto &operator--() {
         --this->x;
         --this->y;
-        --this->z;
         return *this;
     }
     constexpr auto operator--(auto) {
-        const auto copy = Vec3(*this);
+        const auto copy = Vec2(*this);
         --*this;
         return copy;
     }
 
     // Binary Arithmetic Operators
     constexpr auto operator+(int s) const {
-        return Vec3 {
+        return Vec2 {
                 this->x + s,
                 this->y + s,
-                this->z + s,
         };
     }
     constexpr auto operator+(const auto &v) const {
-        return Vec3 {
+        return Vec2 {
                 this->x + v.x,
                 this->y + v.y,
-                this->z + v.z,
         };
     }
     constexpr auto operator-(int s) const {
-        return Vec3 {
+        return Vec2 {
                 this->x - s,
                 this->y - s,
-                this->z - s,
         };
     }
     constexpr auto operator-(const auto &v) const {
-        return Vec3 {
+        return Vec2 {
                 this->x - v.x,
                 this->y - v.y,
-                this->z - v.z,
         };
     }
     constexpr auto operator*(int s) const {
-        return Vec3 {
+        return Vec2 {
                 this->x * s,
                 this->y * s,
-                this->z * s,
         };
     }
     constexpr auto operator*(const auto &v) const {
-        return Vec3 {
+        return Vec2 {
                 this->x * v.x,
                 this->y * v.y,
-                this->z * v.z,
         };
     }
     constexpr auto operator/(int s) const {
-        return Vec3 {
+        return Vec2 {
                 this->x / s,
                 this->y / s,
-                this->z / s,
         };
     }
     constexpr auto operator/(const auto &v) const {
-        return Vec3 {
+        return Vec2 {
                 this->x / v.x,
                 this->y / v.y,
-                this->z / v.z,
         };
     }
 
@@ -204,8 +173,7 @@ struct Vec3
     constexpr bool operator==(const auto &v) const {
         return (
                 this->x == v.x &&
-                this->y == v.y &&
-                this->z == v.z
+                this->y == v.y
         );
     }
 };
