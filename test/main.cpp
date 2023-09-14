@@ -17,7 +17,7 @@ void test_vec4();
 
 int main()
 {
-    Vec4 vec4(2.0f, 2.0f, 5.0f, 1.0f);
+    Vec4 vec4(2.0, 2.0, 5.0, 1.0);
     std::cout << magnitude(vec4) << '\n';
 
     Vec1 vec1(2.0f);

@@ -11,7 +11,7 @@ namespace R3::Math {
 template<typename T>
 constexpr auto magnitude(const T &v) requires (requires(const T &_v) { dot(_v, _v); })
 {
-    if constexpr (std::is_same_v<decltype(v), Vec1<decltype(v.x)>>) {
+    if constexpr (std::is_same_v<T, Vec1<decltype(v.x)>>) {
         return v.x;
     } else if constexpr (std::is_same_v<decltype(v.x), float>) {
         return sqrtf(dot(v, v));
