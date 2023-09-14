@@ -6,6 +6,7 @@
 #include "types/Vec3.hpp"
 #include "types/Vec4.hpp"
 #include "operations/dot.hpp"
+#include "operations/magnitude.hpp"
 
 using namespace R3::Math;
 
@@ -16,6 +17,14 @@ void test_vec4();
 
 int main()
 {
+    Vec4 vec4(2.0f, 2.0f, 5.0f, 1.0f);
+    std::cout << magnitude(vec4) << '\n';
+
+    Vec1 vec1(2.0f);
+    std::cout << magnitude(vec1) << '\n';
+
+    return 0;
+
     test_vec1();
     test_vec2();
     test_vec3();
